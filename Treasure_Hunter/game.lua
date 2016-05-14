@@ -8,12 +8,14 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 
 -- include library
+local math2d = require("plugin.math2d")
 local physics = require "physics"
 physics.start(); physics.pause();physics.setGravity( 0, 0 )
 local particleDesigner = require( "particleDesigner" )
 local physics = require("physics")
 local dusk = require("Dusk.Dusk")
 local button = require("buttons")
+
 --------------------------------------------
 
 -- forward declarations and other locals
@@ -35,6 +37,21 @@ local function chegadaGame( event )
 	    darkness= nil
 	end
 end
+function radar(player,objeto)
+	vx,vy = math2d.sub(player,objeto)
+	dist = math2d.length(vx, vy)
+
+	if dist > 600 then 
+	print("bip")
+	elseif dist < 600 and dist > 400 then
+	print("bip,bip")
+	elseif dist < 400 and dist > 100 then
+	print("bip,bip,bip")
+	elseif dist < 100  then
+	print("biiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiip!")	
+end
+end 
+
 local function morrer( event )
     
 end
@@ -72,7 +89,7 @@ function scene:create( event )
 
 	local function throwBrick()
 	n = n + 1
-	bricks[n] = display.newImage( "brick.png",map.data.width - 20 , map.data.height/2)
+	bricks[n] = display.newImage( "brick.png",map.data.width - 20 , 60)
 	bricks[n].rotation = 90
 	physics.addBody( bricks[n], { density=3.0, friction=0.5, bounce=0.05 } )
 	map.layer[1]:insert(bricks[n])
@@ -108,13 +125,13 @@ function scene:create( event )
 	playerGroup.y = 10
 	map.layer[1]:insert(playerGroup)
 	
- 	local chegada = display.newImage("_imagem/chegada.png")
+ 	chegada = display.newImage("_imagem/chegada.png")
  	chegada.x = map.data.width - 20
  	chegada.y = map.data.height - 61
  	physics.addBody(chegada,"static",{isSensor = true})
     chegada:addEventListener("collision", chegadaGame)
 
- 	map.layer[1]:insert(chegada)
+ 	map.layer[2]:insert(chegada)
 	timer.performWithDelay( 800, start )	
 end
 function scene:show( event )

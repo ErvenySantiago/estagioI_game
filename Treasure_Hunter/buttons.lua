@@ -85,6 +85,7 @@ update = function()
 	map.setViewpoint(playerGroup.x, playerGroup.y)
     player:play()
     map.updateView()
+    radar(playerGroup,chegada)
 end
 Runtime:addEventListener("enterFrame",update)
 
