@@ -1,0 +1,5 @@
+.tocha {
+	border-style: solid;
+	border-width: 62px 184px 0px 185px;
+	border-image: url(slice_tocha_00.png) 62 184 0 185 fill stretch;
+}

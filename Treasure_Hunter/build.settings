@@ -22,6 +22,9 @@ settings =
 		android = { "Icon.png", "Icon-Small-*.png", "Icon*@2x.png", },
 	},
 
+	plugins = {  
+      ['plugin.math2d'] = {publisherId = 'com.roaminggamer'}
+    },
 	--
 	-- iOS Section
 	--

@@ -14,7 +14,7 @@ physics.start(); physics.pause();physics.setGravity( 0, 0 )
 local particleDesigner = require( "particleDesigner" )
 local physics = require("physics")
 local dusk = require("Dusk.Dusk")
-local button = require("buttons")
+
 
 --------------------------------------------
 
@@ -69,7 +69,11 @@ function scene:create( event )
 	local sceneGroup = self.view
 
 	-- create map
-	
+	local tochasheetData = { width=90, height= 60, numFrames=4 }
+	local tochaSheet = graphics.newImageSheet("_imagem/tocha.png",tochasheetData)
+	local tochaSequenceData ={
+	{name = "queima",start = 1,	count = 2,time = 300,loopCount = 0}
+	}
 
 	local sheetData = { width=45, height=63, numFrames=12 }
 	local playerSheet = graphics.newImageSheet("_imagem/gaara.png",sheetData)
@@ -104,7 +108,10 @@ function scene:create( event )
 	-- throw 3 bricks
 		timer.performWithDelay( 360, throwBrick, 1 )
 	end
-
+	tocha = display.newSprite(tochaSheet,tochaSequenceData)
+	tocha:setSequence("queima")
+	tocha.x,tocha.y = 150,100
+	tocha:play()
 
 	player = display.newSprite(playerSheet,playerSequenceData)
 	player:setSequence("idleRigth")
@@ -112,27 +119,28 @@ function scene:create( event )
 	
 	local darkness = graphics.newMask( "maps/circlemask.png" )
 	map:setMask(darkness )
-	map.maskX = centerX
+    map.maskX = centerX
 	map.maskY = centerY
 	map.maskScaleX = 1
 	map.maskScaleY = 1
+	
 	emitter = particleDesigner.newEmitter( "fire.json" )
 	emitter.x = 30
 	playerGroup:insert( emitter )
 	physics.addBody( playerGroup,"dinamic",{density=3.0, friction=0.5, bounce=0.3})
 	playerGroup.isFixedRotation = true
-	playerGroup.x = 50
-	playerGroup.y = 10
+	playerGroup.x = 100
+	playerGroup.y = 60
 	map.layer[1]:insert(playerGroup)
-	
+
  	chegada = display.newImage("_imagem/chegada.png")
  	chegada.x = map.data.width - 20
  	chegada.y = map.data.height - 61
  	physics.addBody(chegada,"static",{isSensor = true})
     chegada:addEventListener("collision", chegadaGame)
-
- 	map.layer[2]:insert(chegada)
-	timer.performWithDelay( 800, start )	
+    local buttons = require("buttons")
+ 	map.layer[1]:insert(chegada)
+ 	timer.performWithDelay( 800, start )	
 end
 function scene:show( event )
 	local sceneGroup = self.view

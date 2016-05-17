@@ -21,7 +21,7 @@ local function onPlayBtnRelease(e)
 	-- go to level1.lua scene
 	if eventName == "began" then
 		if targetName == "play" then
-			composer.gotoScene( "game", "fade", 500 )  
+			composer.gotoScene( "level_game", "fade", 500 )  
 		elseif	targetName == "opicoes" then
 			composer.gotoScene( "opicoes", "fade", 500 )  
 		end
@@ -41,24 +41,37 @@ function scene:create( event )
 	-- display a background image
 	-- create/position logo/title image on upper-half of the screen
 
+local displayText = display.newText( "Relic Hunter", 300, 80, "_imagem/Achafexp.ttf", 60 )
 
 	-- create buttons
+local background = display.newImageRect("_imagem/tela_inicio.png",480,320)
+background.anchorX = 0
+background.anchorY = 0
 --Play
-local btnPlay = display.newImageRect("_imagem/play.png",30,30) 
-btnPlay.x = display.contentCenterX
-btnPlay.y = display.contentCenterY
+local btnPlay = display.newImageRect("_imagem/play.png",50,50) 
+btnPlay.x = 30
+btnPlay.y = 50
 btnPlay.myName = "play"
 btnPlay:addEventListener("touch",onPlayBtnRelease)
 
-local btnOpicoes = display.newImageRect("_imagem/configuracao.png",30,30) 
-btnOpicoes.x = display.contentCenterX
-btnOpicoes.y = display.contentCenterY +30
+local btnOpicoes = display.newImageRect("_imagem/configuracao.png",50,50) 
+btnOpicoes.x = 30
+btnOpicoes.y = 100
 btnOpicoes.myName = "opicoes"
 btnOpicoes:addEventListener("touch",onPlayBtnRelease)
 
+local btnSound = display.newImageRect("_imagem/sound.png",50,50) 
+btnSound.x = 30
+btnSound.y = 150
+btnSound.myName = "sound"
+btnSound:addEventListener("touch",onPlayBtnRelease)
 
+sceneGroup:insert(background)
 sceneGroup:insert(btnPlay)
 sceneGroup:insert(btnOpicoes)
+sceneGroup:insert(btnSound	)
+sceneGroup:insert(displayText)
+
 end
 function scene:show( event )
 	local sceneGroup = self.view

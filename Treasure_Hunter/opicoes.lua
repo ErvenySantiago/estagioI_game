@@ -15,20 +15,7 @@ local widget = require "widget"
 
 
 -- 'onRelease' event listener for playBtn
-local function onPlayBtnRelease(e)
-	local eventName = e.phase
-	local targetName = e.target.myName
-	-- go to level1.lua scene
-	if eventName == "began" then
-		if targetName == "play" then
-			composer.gotoScene( "game", "fade", 100 )  
-		elseif	targetName == "opicoes" then
-			composer.gotoScene( "opicoes", "fade", 500 )  
-		end
-            
-    end
-	
-end
+
 
 function scene:create( event )
 	local sceneGroup = self.view
@@ -43,22 +30,7 @@ function scene:create( event )
 
 
 	-- create buttons
---Play
-local btnPlay = display.newImageRect("_imagem/btnPlay.png",90,30) 
-btnPlay.x = display.contentCenterX
-btnPlay.y = display.contentCenterY
-btnPlay.myName = "play"
-btnPlay:addEventListener("touch",onPlayBtnRelease)
 
-local btnOpicoes = display.newImageRect("_imagem/btnSobre.png",90,30) 
-btnOpicoes.x = display.contentCenterX
-btnOpicoes.y = display.contentCenterY +30
-btnOpicoes.myName = "opicoes"
-btnOpicoes:addEventListener("touch",onPlayBtnRelease)
-
-
-sceneGroup:insert(btnPlay)
-sceneGroup:insert(btnOpicoes)
 end
 function scene:show( event )
 	local sceneGroup = self.view

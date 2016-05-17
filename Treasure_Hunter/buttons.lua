@@ -1,20 +1,20 @@
 local W, H, halfW = display.contentWidth, display.contentHeight, display.contentWidth*0.5
 
 
-local buttons = {}
-    buttons[1] = display.newImage("_imagem/left.png",397,260) --left
+buttons = {}
+    buttons[1] = display.newImage("_imagem/left.png",387,260) --left
 	buttons[1].myName = "left"
 
-	buttons[2] = display.newImage("_imagem/rigth.png",443,260) --rigth
+	buttons[2] = display.newImage("_imagem/rigth.png",453,260) --rigth
 	buttons[2].myName = "rigth"
 
-	buttons[3] = display.newImage("_imagem/up.png",420,235) --Up
+	buttons[3] = display.newImage("_imagem/up.png",420,225) --Up
 	buttons[3].myName = "up"
 
-    buttons[4] = display.newImage("_imagem/down.png",420,285) --Down
+    buttons[4] = display.newImage("_imagem/down.png",420,295) --Down
     buttons[4].myName = "down"
 
-    buttons[5] = display.newImage("_imagem/espaco.png",420,260) --Down
+    buttons[5] = display.newImage("_imagem/espaco.png",420,260) --center
     buttons[5].myName = "espaco"
 
     local yAxis = 0
@@ -62,8 +62,8 @@ end
 for j=1 , #buttons do
     buttons[j].anchorX = 0
     buttons[j].anchorY = 0
-    buttons[j].alpha = .4
-    buttons[j]:scale(.5,.5)
+    buttons[j].alpha = 1
+    buttons[j]:scale(.2,.2)
     buttons[j]:addEventListener("touch",touchFunction)
 end
 
@@ -82,7 +82,7 @@ update = function()
     elseif playerGroup.y >= (H + 5000) - playerGroup.height * .5 then
         playerGroup.y = H - playerGroup.height * .5
 	end
-	map.setViewpoint(playerGroup.x, playerGroup.y)
+	map.setCameraFocus(playerGroup)
     player:play()
     map.updateView()
     radar(playerGroup,chegada)
