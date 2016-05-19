@@ -7,12 +7,12 @@
          "opacity":1,
          "properties":
             {
-             "phisycs:enabled":"true",
+             "physics:enabled":"true",
              "tiles:bodyType":"static"
             },
          "propertytypes":
             {
-             "phisycs:enabled":"string",
+             "physics:enabled":"string",
              "tiles:bodyType":"string"
             },
          "type":"tilelayer",

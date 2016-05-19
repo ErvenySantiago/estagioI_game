@@ -10,7 +10,7 @@ local scene = composer.newScene()
 -- include library
 local math2d = require("plugin.math2d")
 local physics = require "physics"
-physics.start(); physics.pause();physics.setGravity( 0, 0 )
+physics.start(); physics.pause();physics.setGravity( 0, 0 );physics.setDrawMode("hybrid")
 local particleDesigner = require( "particleDesigner" )
 local physics = require("physics")
 local dusk = require("Dusk.Dusk")
@@ -23,7 +23,7 @@ local W, H, halfW = display.contentWidth, display.contentHeight, display.content
 local centerX = display.contentCenterX
 local centerY = display.contentCenterY
 
-map = dusk.buildMap("maps/level_1.json")
+map = dusk.buildMap("maps/level_3.json")
 map.setCameraBounds( { xMin = map.data.width - W, 
                        xMax = map.data.width, 
                        yMin = display.contentHeight * 0.5, 
@@ -69,23 +69,18 @@ function scene:create( event )
 	local sceneGroup = self.view
 
 	-- create map
-	local tochasheetData = { width=90, height= 60, numFrames=4 }
-	local tochaSheet = graphics.newImageSheet("_imagem/tocha.png",tochasheetData)
-	local tochaSequenceData ={
-	{name = "queima",start = 1,	count = 2,time = 300,loopCount = 0}
-	}
-
-	local sheetData = { width=45, height=63, numFrames=12 }
-	local playerSheet = graphics.newImageSheet("_imagem/gaara.png",sheetData)
+	
+	local sheetData = { width=64, height=64, numFrames=36 }
+	local playerSheet = graphics.newImageSheet("_imagem/professor.png",sheetData)
 	local playerSequenceData ={
-	{name = "moveRigth",start = 8,	count = 2,time = 300,loopCount = 0},
-	{name = "moveLeft",start = 5,	count = 2,time = 300,loopCount = 0},
-	{name = "moveUp",start = 11,  count = 2,time = 300,loopCount = 0},
-	{name = "moveDown",start = 2,  count = 2,time = 300,loopCount = 0},
-	{name = "idleRigth",start = 7,count = 1,time = 0,loopCount = 1},
-	{name = "idleLeft",start = 4,count = 1,time = 0,loopCount = 1},
-	{name = "idleUp",start = 10,count = 1,time = 0,loopCount = 1},
-	{name = "idleDown",start = 1,count = 1,time = 0,loopCount = 1}
+	{name = "moveRigth",start = 29,	count = 8,time = 300,loopCount = 0},
+	{name = "moveLeft",start = 11,	count = 8,time = 300,loopCount = 0},
+	{name = "moveUp",start = 2,  count = 8,time = 300,loopCount = 0},
+	{name = "moveDown",start = 20,  count = 8,time = 300,loopCount = 0},
+	{name = "idleRigth",start = 28,count = 1,time = 0,loopCount = 1},
+	{name = "idleLeft",start = 10,count = 1,time = 0,loopCount = 1},
+	{name = "idleUp",start = 1,count = 1,time = 0,loopCount = 1},
+	{name = "idleDown",start = 19,count = 1,time = 0,loopCount = 1}
 	}
 
 	local bricks = {}
@@ -108,10 +103,7 @@ function scene:create( event )
 	-- throw 3 bricks
 		timer.performWithDelay( 360, throwBrick, 1 )
 	end
-	tocha = display.newSprite(tochaSheet,tochaSequenceData)
-	tocha:setSequence("queima")
-	tocha.x,tocha.y = 150,100
-	tocha:play()
+	
 
 	player = display.newSprite(playerSheet,playerSequenceData)
 	player:setSequence("idleRigth")
@@ -129,9 +121,9 @@ function scene:create( event )
 	playerGroup:insert( emitter )
 	physics.addBody( playerGroup,"dinamic",{density=3.0, friction=0.5, bounce=0.3})
 	playerGroup.isFixedRotation = true
-	playerGroup.x = 100
-	playerGroup.y = 60
-	map.layer[1]:insert(playerGroup)
+	playerGroup.x = 20
+	playerGroup.y = map.data.height/2 - 30
+	map.layer[2]:insert(playerGroup)
 
  	chegada = display.newImage("_imagem/chegada.png")
  	chegada.x = map.data.width - 20

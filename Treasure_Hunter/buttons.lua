@@ -82,7 +82,7 @@ update = function()
     elseif playerGroup.y >= (H + 5000) - playerGroup.height * .5 then
         playerGroup.y = H - playerGroup.height * .5
 	end
-	map.setCameraFocus(playerGroup)
+	map.setViewpoint(playerGroup.x,playerGroup.y)
     player:play()
     map.updateView()
     radar(playerGroup,chegada)

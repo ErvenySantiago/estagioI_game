@@ -29,7 +29,7 @@ function handleButtonEvent( event )
 
     if ( "ended" == event.phase ) then
         if event.target.id == "1" then
-            composer.gotoScene("game","fade", 500)
+            composer.gotoScene( "game", "fade",700 ) 
         elseif event.target.id == "voltar" then
         	composer.gotoScene( "menu", "fade",700 )    
         end
@@ -189,6 +189,15 @@ function scene:hide( event )
 		
 	elseif phase == "did" then
 		-- Called when the scene is now off screen
+		local options = {
+   			effect = "fade",
+			time = 500,
+			isModal = true,
+			params = {
+			    someKey = "someValue",
+			    someOtherKey = 10
+   		}
+	}	
 	end	
 	
 end
